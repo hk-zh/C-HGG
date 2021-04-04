@@ -184,7 +184,7 @@ python play.py --env FetchReach-v1 --goal custom --play_path log/1310-ddpg-Fetch
 ### Hand Environments
 ```bash
 # HandManipulateEgg
-python play.py --env HandManipulateEgg-v0 --play_path log/1211-ddpg-HandManipulateEgg-v0-hgg-stop --play_epoch best
+python play.py --env HandManipulateEgg-v0 --play_path log/1210-ddpg-HandManipulateEgg-v0-hgg-stop --play_epoch best
 # HandReach
 python play.py --env HandReach-v0 --play_path log/1110-ddpg-HandReach-v0-hgg-stop --play_epoch best
 # HandManipulateBlock
