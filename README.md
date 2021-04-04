@@ -21,17 +21,15 @@ pip install -e .
 ```bash
 pip install -r requirements.txt
 ```
+## New Kuka Environments
 
 ## Training under different environments
 
-The following commands are used to train the agent in different environments with HGG, HER, G-HGG, C-HGG
+The following commands are used to train the agent in different environments with HGG, HER, G-HGG, C-HGG.
+Note that new Kuka Environments are introduced.
 
-Training Results:
-
+### Fetch Environments
 ```bash
-##### Fetch Environments #####
-
-
 # FetchPushLabyrinth
 # HER (with EBP)
 python train.py --tag 000 --learn normal --env FetchPushLabyrinth-v1 --goal custom 
@@ -70,12 +68,9 @@ python train.py --tag 1010 --goal custom --learn hgg --env FetchPush-new-v1 --st
 # FetchReach
 python train.py --tag 1310 --goal custom --learn hgg --env FetchReach-v1 --stop_hgg_threshold 0.3 --epoch 20
 
-
-
-
-##### Kuka Environments #####
-
-
+```
+### Kuka Environments
+```bash
 # KukaReach
 python train.py --tag 400 --learn normal --env KukaReach-v1 
 python train.py --tag 410 --learn hgg --env KukaReach-v1 --stop_hgg_threshold 0.3
@@ -100,11 +95,10 @@ python train.py --tag 910 --learn hgg --env KukaPushSlide-v1 --stop_hgg_threshol
 
 # KukaPush
 python train.py --tag 1010 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold 0.3 --epoch 20
+```
 
-
-##### Hand Environments #####
-
-
+### Hand Manipulate Environments
+```bash
 # HandReach
 python train.py --tag 1110 --learn hgg --env HandReach-v0 --stop_hgg_threshold 0.3 --epoch 20
 
@@ -115,19 +109,13 @@ python train.py --tag 1210 --learn hgg --env HandReach-v0 --stop_hgg_threshold 0
 python train.py --tag 1410 --learn hgg --env Hand 
 ```
 
-
-
 ## Playing 
 
 To look at the agent solving the respective task according to his learned policy, issue the following command:
 
+### Kuka Environments
 ```bash
 # Scheme: python play.py --env env_id --goal custom --play_path log_dir --play_epoch <epoch number, latest or best>
-
-
-
-##### Kuka Environments #####
-
 
 # KukaReach
 python play.py --env KukaReach-v1 --play_path log/400-ddpg-KukaReach-v1-normal --play_epoch best
@@ -157,13 +145,9 @@ python play.py --env KukaPushNew-v1 --play_path log/1010-ddpg-KukaPushNew-v1-hgg
 #KukaPushNew
 python play.py --env KukaPushNew-v1 --play_path log/1010-ddpg-KukaPushNew-v1-hgg-stop --play_epoch best
 
-
-
-
-
-##### Fetch Environments #####
-
-
+```
+### Fetch Environments
+```bash
 # FetchPushLabyrinth
 # G-HGG
 python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path figures/BA_Labyrinth/000-ddpg-FetchPushLabyrinth-v1-hgg-mesh-stop --play_epoch best
@@ -193,10 +177,9 @@ python play.py --env FetchPushNew-v1 --goal custom --play_path log/1010-ddpg-Fet
 # FetchReach
 python play.py --env FetchReach-v1 --goal custom --play_path log/1310-ddpg-FetchReach-v1-hgg-stop --play_epoch best
 
-
-
-##### Hand Environments #####
-
+```
+### Hand Environments
+```bash
 # HandManipulateEgg
 python play.py --env HandManipulateEgg-v0 --play_path log/1211-ddpg-HandManipulateEgg-v0-hgg-stop --play_epoch best
 # HandReach
