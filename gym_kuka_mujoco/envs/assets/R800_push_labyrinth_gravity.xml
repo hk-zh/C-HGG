@@ -31,7 +31,7 @@
   </asset>
 
   <equality>
-        <weld body1="kuka_mocap" body2="needle_tip" solimp="0.9 0.95 0.001" solref="0.05 1"/>
+        <weld body1="kuka_mocap" body2="needle_tip" solimp="0.9 0.95 0.001" solref="0.02 1"/>
   </equality>
 
 
