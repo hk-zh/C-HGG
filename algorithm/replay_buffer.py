@@ -1,8 +1,7 @@
 import numpy as np
 import copy
-import random
 from envs.utils import quaternion_to_euler_angle
-from envs import make_env
+# from envs import make_env
 from sklearn.neighbors import NearestNeighbors
 
 
@@ -101,7 +100,9 @@ class ReplayBuffer_Episodic:
             self.energy_max = 1.0
         else:
             self.energy = False
-        env = make_env(args)
+        if args.graph:
+            self.graph = args.graph
+        # env = make_env(args)
         # self.workspace = env.get_workspace()
         self.buffer = {}
         self.achieved_goals = []
@@ -118,8 +119,22 @@ class ReplayBuffer_Episodic:
             'ddpg': self.sample_batch_ddpg,
             'curriculum': self.sample_batch_diversity_proximity_trade_off
         }
-        self.sample_batch = self.sample_methods[args.buffer_sample]
+        if args.curriculum:
+            self.sample_batch = self.sample_methods['curriculum']
+        else:
+            self.sample_batch = self.sample_methods['ddpg']
 
+    def get_goal_distance(self, goal_a, goal_b):
+        d, _ = self.graph.get_dist(goal_a, goal_b)
+        if d == np.inf:
+            d = 9999
+        return d
+
+    def get_goal_distance_grid(self, goal_a, goal_b):
+        d = self.graph.get_dist_grid(goal_a, goal_b)
+        if d == np.inf:
+            d = 9999
+        return d
 
     def store_trajectory(self, trajectory):
         episode = trajectory.ep
@@ -230,110 +245,58 @@ class ReplayBuffer_Episodic:
 
         return batch
 
-    def fa(self, k, a_set, v_set, sim, row, col):
-        if len(a_set) == 0:
-            init_a_set = []
-            marginal_v = 0
-            for i in v_set:
-                max_ki = 0
-                if k == col[i]:
-                    max_ki = sim[i]
-                init_a_set.append(max_ki)
-                marginal_v += max_ki
-            return marginal_v, init_a_set
+    # def fa(self, k, a_set, v_set, sim, row, col):
+    #     if len(a_set) == 0:
+    #         init_a_set = []
+    #         marginal_v = 0
+    #         for i in v_set:
+    #             max_ki = 0
+    #             if k == col[i]:
+    #                 max_ki = sim[i]
+    #             init_a_set.append(max_ki)
+    #             marginal_v += max_ki
+    #         return marginal_v, init_a_set
+    #
+    #     new_a_set = []
+    #     marginal_v = 0
+    #     for i in v_set:
+    #         sim_ik = 0
+    #         if k == col[i]:
+    #             sim_ik = sim[i]
+    #
+    #         if sim_ik > a_set[i]:
+    #             max_ki = sim_ik
+    #             new_a_set.append(max_ki)
+    #             marginal_v += max_ki - a_set[i]
+    #         else:
+    #             new_a_set.append(a_set[i])
+    #     return marginal_v, new_a_set
 
-        new_a_set = []
-        marginal_v = 0
-        for i in v_set:
-            sim_ik = 0
-            if k == col[i]:
-                sim_ik = sim[i]
+    def compute_diversity_graph(self, batch):
+        goals = []
+        diversity = 0.0
 
-            if sim_ik > a_set[i]:
-                max_ki = sim_ik
-                new_a_set.append(max_ki)
-                marginal_v += max_ki - a_set[i]
-            else:
-                new_a_set.append(a_set[i])
-        return marginal_v, new_a_set
+        for i in range(len(batch)):
+            idx = batch[i][0]
+            step = batch[i][1]
+            ac_goal = self.buffer['obs'][idx][step]['achieved_goal']
+            goals.append(ac_goal)
 
-    def sample_batch_CHER(self, batch_size=-1, normalizer=False, plain=False):
-        if self.counter < 100:
-            return self.sample_batch_ddpg()
-
-        assert int(normalizer) + int(plain) <= 1
-        batch_size = self.args.batch_size
-        # batch_size = min(self.args.batch_size, 64)
-        batch = dict(obs=[], obs_next=[], acts=[], rews=[], done=[])
-        # achieved_goals = []
-        # goals = []
-        # f = []
-        # buffer_size = min(self.args.buffer_size, 256)
-        # for iter in range(buffer_size):
-        #     j = self.energy_sample()
-        #     step = np.random.randint(self.steps[j])
-        #     achieved_goals.append(self.buffer['obs'][j][step]['achieved_goal'])
-        #     goals.append(self.buffer['obs'][j][step]['desired_goal'])
-        #     f.append([j, step])
-        # num_neighbor = 1
-        # kgraph = NearestNeighbors(
-        #     n_neighbors=num_neighbor, algorithm='kd_tree',
-        #     metric='euclidean').fit(achieved_goals).kneighbors_graph(
-        #     mode='distance').tocoo(copy=False)
-        # row = kgraph.row
-        # col = kgraph.col
-        # sim = np.exp(-np.divide(np.power(kgraph.data, 2), np.mean(kgraph.data) ** 2))
-        # sel_idx_set = []
-        # idx_set = [i for i in range(len(achieved_goals))]
-        # v_set = [i for i in range(len(achieved_goals))]
-        # max_set = []
-        # for i in range(batch_size):
-        #     sub_size = 3
-        #     sub_set = random.sample(idx_set, sub_size)
-        #     sel_idx = -1
-        #     max_marginal = float("-inf")  # -1 may have an issue
-        #     for j in range(sub_size):
-        #         k_idx = sub_set[j]
-        #         marginal_v, new_a_set = self.fa(k_idx, max_set, v_set, sim, row,
-        #                                         col)
-        #         euc = np.linalg.norm(goals[sub_set[j]] - achieved_goals[sub_set[j]])
-        #         marginal_v = marginal_v - self.balance * euc
-        #         if marginal_v > max_marginal:
-        #             sel_idx = k_idx
-        #             max_marginal = marginal_v
-        #             max_set = new_a_set
-        #     idx_set.remove(sel_idx)]
-        #     sel_idx_set.append(sel_idx)
-
-        for i in range(batch_size):
-            idx = self.energy_sample()
-            step = np.random.randint(self.steps[idx])
-            step_her = np.random.randint(step + 1, self.steps[idx] + 1)
-            if np.random.uniform() <= self.args.her_ratio:
-                goal = self.buffer['obs'][idx][step_her]['achieved_goal']
-            else:
-                goal = self.buffer['obs'][idx][step]['desired_goal']
-
-            achieved = self.buffer['obs'][idx][step + 1]['achieved_goal']
-            achieved_old = self.buffer['obs'][idx][step]['achieved_goal']
-            obs = goal_concat(self.buffer['obs'][idx][step]['observation'], goal)
-            obs_next = goal_concat(self.buffer['obs'][idx][step + 1]['observation'], goal)
-            act = self.buffer['acts'][idx][step]
-            rew = self.args.compute_reward((achieved, achieved_old), goal)
-            done = self.buffer['done'][idx][step]
-
-            batch['obs'].append(copy.deepcopy(obs))
-            batch['obs_next'].append(copy.deepcopy(obs_next))
-            batch['acts'].append(copy.deepcopy(act))
-            batch['rews'].append(copy.deepcopy([rew]))
-            batch['done'].append(copy.deepcopy(done))
-        # if self.args.batch_size > batch_size:
-        #     for i in range(self.args.batch_size - batch_size):
-        #         idx = self.energy_sample()
-        #         step = np.random.randint(self.steps[idx])
-        #         step_her = np.random.randint(step, self.steps[idx])
-        #         batch = self.sample_transition(idx, step_her, batch, step_her)
-        return batch
+        num_neighbor = 1
+        kgraph = NearestNeighbors(
+            n_neighbors=num_neighbor, algorithm='kd_tree',
+            metric='euclidean').fit(goals).kneighbors_graph(
+            mode='distance').tocoo(copy=False)
+        row = kgraph.row
+        col = kgraph.col
+        n = len(row)
+        cnt = 0
+        for i in range(n):
+            dis = self.get_goal_distance_grid(goals[row[i]], goals[col[i]])
+            if dis != 9999:
+                diversity += dis
+                cnt += 1
+        return diversity / cnt
 
     def compute_diversity2(self, batch):
         goals = []
@@ -343,9 +306,8 @@ class ReplayBuffer_Episodic:
             idx = batch[i][0]
             step = batch[i][1]
             ac_goal = self.buffer['obs'][idx][step]['achieved_goal']
-            if self.ignore or self.in_workspace(ac_goal):
-                goals.append(ac_goal)
-                cnt += 1
+            goals.append(ac_goal)
+            cnt += 1
 
         num_neighbor = 1
         kgraph = NearestNeighbors(
@@ -366,9 +328,8 @@ class ReplayBuffer_Episodic:
             step = batch[i][1]
             goal = batch[i][2]
             ac_goal = self.buffer['obs'][idx][step]['achieved_goal']
-            if self.ignore or self.in_workspace(ac_goal):
-                center = center + ac_goal
-                cnt += 1
+            center = center + ac_goal
+            cnt += 1
         if cnt == 0:
             return 0.0
         center = center / cnt
@@ -377,9 +338,23 @@ class ReplayBuffer_Episodic:
             idx = batch[i][0]
             step = batch[i][1]
             ac_goal = self.buffer['obs'][idx][step]['achieved_goal']
-            if self.ignore or self.in_workspace(ac_goal):
-                diversity = diversity + np.linalg.norm(center - ac_goal)
+            #            if self.ignore or self.in_workspace(ac_goal):
+            diversity = diversity + np.linalg.norm(center - ac_goal)
         return diversity / cnt
+
+    def compute_proximity_graph(self, batch):
+        proximity = 0.0
+        cnt = 0
+        for i in range(len(batch)):
+            idx = batch[i][0]
+            step = batch[i][1]
+            goal = batch[i][2]
+            ac_goal = self.buffer['obs'][idx][step]['achieved_goal']
+            dis = self.get_goal_distance(ac_goal, goal)
+            if dis != 9999:
+                proximity = proximity + dis
+                cnt += 1
+        return proximity / cnt
 
     def compute_proximity(self, batch):
         proximity = 0.0
@@ -398,14 +373,13 @@ class ReplayBuffer_Episodic:
         batch_size = self.args.batch_size
         batch = dict(obs=[], obs_next=[], acts=[], rews=[], done=[])
         batches = []
-        N = 10
+        N = 5
         for i in range(N):
             batches.append([])
         sel_batch = None
         F_max = float('-inf')
         self.iter_balance = self.iter_balance * (1 + self.tau)
         for i in range(N):
-
             for j in range(batch_size):
                 idx = self.energy_sample()
                 step = np.random.randint(self.steps[idx])
@@ -416,10 +390,15 @@ class ReplayBuffer_Episodic:
                     goal = self.buffer['obs'][idx][step]['desired_goal']
                 batches[i].append([idx, step, goal])
 
-            diversity = 10 * self.compute_diversity2(batches[i])
-            proximity = self.compute_proximity(batches[i])
+            if self.args.graph:
+                diversity = self.compute_diversity_graph(batches[i])
+                proximity = self.compute_proximity_graph(batches[i])
+            else:
+                diversity = self.compute_diversity2(batches[i])
+                proximity = self.compute_proximity(batches[i])
+
             lamb = self.dis_balance
-            F = diversity - lamb * proximity
+            F = 100 * diversity - lamb * proximity
             if F > F_max:
                 F_max = F
                 sel_batch = batches[i]

@@ -6,6 +6,18 @@ from algorithm import create_agent
 from learner import create_learner, learner_collection
 from test import Tester
 from algorithm.replay_buffer import ReplayBuffer_Episodic, goal_based_process
+from envs.distance_graph import DistanceGraph
+
+
+def create_graph_distance(env, args):
+    obstacles = list()
+    field = env.env.env.adapt_dict["field"]
+    obstacles = env.env.env.adapt_dict["obstacles"]
+    num_vertices = args.num_vertices
+    graph = DistanceGraph(args=args, field=field, num_vertices=num_vertices, obstacles=obstacles)
+    graph.compute_cs_graph()
+    graph.compute_dist_matrix()
+    return graph
 
 
 def get_args():
@@ -16,7 +28,8 @@ def get_args():
     parser.add_argument('--learn', help='type of training method', type=str, default='hgg',
                         choices=learner_collection.keys())
 
-    parser.add_argument('--env', help='gym env id', type=str, default='FetchReach-v1', choices=Robotics_envs_id + Kuka_envs_id)
+    parser.add_argument('--env', help='gym env id', type=str, default='FetchReach-v1',
+                        choices=Robotics_envs_id + Kuka_envs_id)
     args, _ = parser.parse_known_args()
     if args.env == 'HandReach-v0':
         parser.add_argument('--goal', help='method of goal generation', type=str, default='reach',
@@ -32,6 +45,7 @@ def get_args():
                                 default=0.25)
     parser.add_argument('--graph', help='g-hgg yes or no', type=str2bool, default=False)
     parser.add_argument('--route', help='use route to help hgg find target or not', type=str2bool, default=False)
+    # route only for testing
     parser.add_argument('--show_goals', help='number of goals to show', type=np.int32, default=0)
     parser.add_argument('--play_path', help='path to meta_file directory for play', type=str, default=None)
     parser.add_argument('--play_epoch', help='epoch to play', type=str, default='latest')
@@ -61,10 +75,12 @@ def get_args():
     parser.add_argument('--timesteps', help='number of timesteps per episode', type=np.int32,
                         default=(50 if args.env[:5] == 'fetch' else 100))
     parser.add_argument('--train_batches', help='number of batches to train per episode', type=np.int32, default=20)
-    parser.add_argument('--buffer_sample', type=str, default='ddpg')
+    parser.add_argument('--curriculum', type=str2bool, default=False)
     parser.add_argument('--buffer_size', help='number of episodes in replay buffer', type=np.int32, default=10000)
     parser.add_argument('--buffer_type', help='type of replay buffer / whether to use Energy-Based Prioritization',
                         type=str, default='energy', choices=['normal', 'energy'])
+    parser.add_argument('--rhg', help='record hindsight goals in different learning stage or not', type=str2bool,
+                        default=False)
     parser.add_argument('--batch_size', help='size of sample batch', type=np.int32, default=256)
     parser.add_argument('--warmup', help='number of timesteps for buffer warmup', type=np.int32, default=10000)
     parser.add_argument('--her', help='type of hindsight experience replay', type=str, default='future',
@@ -93,7 +109,7 @@ def get_args():
         logger_name = logger_name + '-graph'
     if args.stop_hgg_threshold < 1:
         logger_name = logger_name + '-stop'
-    if args.buffer_sample == 'curriculum':
+    if args.curriculum:
         logger_name = logger_name + '-curriculum'
 
     args.logger = get_logger(logger_name)
@@ -113,6 +129,11 @@ def experiment_setup(args):
         args.compute_reward = env.compute_reward
         args.compute_distance = env.compute_distance
 
+    if args.graph:
+        args.graph = graph = create_graph_distance(env, args)
+    else:
+        args.graph = graph = None
+
     args.buffer = buffer = ReplayBuffer_Episodic(args)
     args.learner = learner = create_learner(args)
     args.agent = agent = create_agent(args)
@@ -121,4 +142,5 @@ def experiment_setup(args):
     args.logger.info('*** tester initialization complete ***')
     args.timesteps = env.max_episode_steps
 
-    return env, env_test, agent, buffer, learner, tester
+
+    return env, env_test, agent, buffer, learner, tester, graph

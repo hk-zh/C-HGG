@@ -56,7 +56,7 @@ class MatchSampler:
         self.achieved_trajectory_pool = achieved_trajectory_pool
 
         if self.args.graph:
-            self.create_graph_distance()
+            self.graph = args.graph
 
         # estimating diameter
         self.max_dis = 0
@@ -66,15 +66,15 @@ class MatchSampler:
             if dis > self.max_dis: self.max_dis = dis
 
     # Pre-computation of graph-based distances
-    def create_graph_distance(self):
-        obstacles = list()
-        field = self.env.env.env.adapt_dict["field"]
-        obstacles = self.env.env.env.adapt_dict["obstacles"]
-        num_vertices = self.args.num_vertices
-        graph = DistanceGraph(args=self.args, field=field, num_vertices=num_vertices, obstacles=obstacles)
-        graph.compute_cs_graph()
-        graph.compute_dist_matrix()
-        self.graph = graph
+    # def create_graph_distance(self):
+    #     obstacles = list()
+    #     field = self.env.env.env.adapt_dict["field"]
+    #     obstacles = self.env.env.env.adapt_dict["obstacles"]
+    #     num_vertices = self.args.num_vertices
+    #     graph = DistanceGraph(args=self.args, field=field, num_vertices=num_vertices, obstacles=obstacles)
+    #     graph.compute_cs_graph()
+    #     graph.compute_dist_matrix()
+    #     self.graph = graph
 
     def get_graph_goal_distance(self, goal_a, goal_b):
         if self.args.graph:
@@ -236,25 +236,8 @@ class HGGLearner:
         self.stop = False
         self.learn_calls = 0
         self.K = 1
-        self.iter = 0
 
     def learn(self, args, env, env_test, agent, buffer, write_goals=0):
-
-        if self.iter == 50:
-            file_handle = open('1.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 150:
-            file_handle = open('2.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 250:
-            file_handle = open('3.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 350:
-            file_handle = open('4.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        self.iter += 1
-
-
         # Actual learning cycle takes place here!
         initial_goals = []
         desired_goals = []

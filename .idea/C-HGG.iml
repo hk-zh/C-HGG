@@ -4,6 +4,10 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/src/gym/gym.egg-info" />
+      <excludeFolder url="file://$MODULE_DIR$/figures" />
+      <excludeFolder url="file://$MODULE_DIR$/log" />
+      <excludeFolder url="file://$MODULE_DIR$/toplot" />
+      <excludeFolder url="file://$MODULE_DIR$/videos" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (3)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,32 +1,30 @@
-# Graph Based Hindsight Goal Generation under Kuka-Environment
+# Curriculum-guided Hindsight Goal Generation under Kuka-Environment
 
 It is based on the implementation of the HGG paper [Exploration via Hindsight Goal Generation](http://arxiv.org/abs/1906.04279) accepted by NeurIPS 2019.
 
 
 
 ## Requirements
-1. Ubuntu 16.04 (newer versions such as 18.04 should work as well)
+1. Ubuntu 16.04 or macOS Catalina 10.15.7 (newer versions such as 18.04 should work as well) 
 2. Python 3.5.2 (newer versions such as 3.6.8 should work as well)
 3. MuJoCo == 2.00 (see instructions on https://github.com/openai/mujoco-py)
-4. Install gym from https://github.com/mbrucker07/gym.git. Certain environment specifications and parameters are set there. 
+4. Install gym from https://github.com/Hongkuan-Zhou/gym.git. Certain environment specifications and parameters are set there. 
+
+
 ```bash
-git clone https://github.com/mbrucker07/gym.git
+git clone https://github.com/Hongkuan-Zhou/gym.git
 cd gym
 pip install -e . 
 ```
-5. Clone HGG-Extended form https://github.com/mbrucker07/HGG-Extended.git.
-```bash
-git clone https://github.com/mbrucker07/HGG-Extended.git
-cd HGG-Extended
-```
+
 6. Install requirements with pip install -r requirements.txt
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running commands from G-HGG
+## Training under different environments
 
-Run the following commands to reproduce results on FetchPushLabyrinth, FetchPickObstacle, FetchPickNoObstacle, and FetchPickAndThrow environments.
+The following commands are used to train the agent in different environments with HGG, HER, G-HGG, C-HGG
 
 Training Results:
 
@@ -42,8 +40,9 @@ python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom 
 # G-HGG (with HER, EBP and STOP condition)
 python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 
 # HER+GoalGAN
-python train.py --tag 030 --learn her+goalGAN --env FetchPushLabyrinth-v1 --goal custom
-python train.py --tag 040 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
+python train.py --tag 030 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
+# C-HGG
+python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --buffer_sample 
 
 
 # FetchPickObstacle
