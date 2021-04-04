@@ -22,7 +22,10 @@ pip install -e .
 pip install -r requirements.txt
 ```
 ## New Kuka Environments
-
+![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaReach.png)
+![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaPush.png)
+![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaPickNoObstacle.png)
+![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaPickObstacle.png)
 ## Training under different environments
 
 The following commands are used to train the agent in different environments with HGG, HER, G-HGG, C-HGG.
