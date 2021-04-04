@@ -279,11 +279,6 @@ class HGGLearner:
                 explore_goal = desired_goals[i]
 
             left_dis_total += self.sampler.get_graph_goal_distance(explore_goal, desired_goals[i])
-            if left_dis_total == 0:
-                buffer.dis_balance = 1000
-                # maximum
-            else:
-                buffer.dis_balance = args.balance_eta * pow(2.71, (left_dis_total/(i+1)) / args.balance_sigma)
 
             # store goals in explore_goals list to check whether goals are within goal space later
             explore_goals.append(explore_goal)
@@ -321,6 +316,12 @@ class HGGLearner:
                     args.logger.add_dict(info)
                 # update target network
                 agent.target_update()
+
+        if left_dis_total == 0:
+            buffer.dis_balance = 1000
+            # maximum
+        else:
+            buffer.dis_balance = args.balance_eta * pow(2.71, (left_dis_total / self.args.episodes) / args.balance_sigma)
 
         selection_trajectory_idx = {}
         for i in range(self.args.episodes):

@@ -110,7 +110,7 @@ class ReplayBuffer_Episodic:
         self.length = 0
         self.counter = 0
         self.steps_counter = 0
-        self.dis_balance = 2
+        self.dis_balance = 0
         self.iter_balance = 1
         self.tau = 0.00001
         self.stop_trade_off = False
@@ -373,7 +373,7 @@ class ReplayBuffer_Episodic:
         batch_size = self.args.batch_size
         batch = dict(obs=[], obs_next=[], acts=[], rews=[], done=[])
         batches = []
-        N = 5
+        N = 8
         for i in range(N):
             batches.append([])
         sel_batch = None

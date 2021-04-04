@@ -5,7 +5,7 @@ It is based on the implementation of the HGG paper [Exploration via Hindsight Go
 
 
 ## Requirements
-1. Ubuntu 16.04 or macOS Catalina 10.15.7 (newer versions such as 18.04 should work as well) 
+1. Ubuntu 16.04 or macOS Catalina 10.15.7 (newer versions also work well) 
 2. Python 3.5.2 (newer versions such as 3.6.8 should work as well)
 3. MuJoCo == 2.00 (see instructions on https://github.com/openai/mujoco-py)
 4. Install gym from https://github.com/Hongkuan-Zhou/gym.git. Certain environment specifications and parameters are set there. 
@@ -43,7 +43,7 @@ python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom 
 # HER+GoalGAN
 python train.py --tag 030 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
 # C-HGG
-python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --buffer_sample 
+python train.py --tag 040 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --curriculum True
 
 
 # FetchPickObstacle

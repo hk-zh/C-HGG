@@ -56,6 +56,7 @@ class DistanceGraph:
 
         self.lower_band = [self.x_min, self.y_min, self.z_min]
         self.diff = [self.dx, self.dy, self.dz]
+        self.hash = [1, self.n_x, self.n_x * self.n_y]
 
         # total number of vertices
 
@@ -125,7 +126,7 @@ class DistanceGraph:
 
     def gridpoint2vertex(self, gridpoint) -> int:
         # converts gridpoint representation [i, j, k] to vertex ID
-        node = gridpoint[0] + gridpoint[1] * self.n_x + gridpoint[2] * self.n_x * self.n_y
+        node = np.dot(gridpoint, self.hash)
         return int(node)
 
     def vertex2gridpoint(self, vertex) -> (int, int, int):
