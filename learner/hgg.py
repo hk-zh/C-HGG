@@ -316,12 +316,11 @@ class HGGLearner:
                     args.logger.add_dict(info)
                 # update target network
                 agent.target_update()
-
         if left_dis_total == 0:
             buffer.dis_balance = 1000
             # maximum
         else:
-            buffer.dis_balance = args.balance_eta * pow(2.71, (left_dis_total / self.args.episodes) / args.balance_sigma)
+            buffer.dis_balance = args.balance_eta * pow(2.71, (-left_dis_total / args.episodes) / (args.balance_sigma * args.balance_sigma))
 
         selection_trajectory_idx = {}
         for i in range(self.args.episodes):
