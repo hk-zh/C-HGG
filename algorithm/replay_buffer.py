@@ -275,7 +275,7 @@ class ReplayBuffer_Episodic:
     def compute_diversity_graph(self, batch):
         goals = []
         diversity = 0.0
-
+        C = 0.1
         for i in range(len(batch)):
             idx = batch[i][0]
             step = batch[i][1]
@@ -294,7 +294,7 @@ class ReplayBuffer_Episodic:
         for i in range(n):
             dis = self.get_goal_distance_grid(goals[row[i]], goals[col[i]])
             if dis != 9999:
-                diversity += dis
+                diversity += kgraph.data[i] + dis * C
                 cnt += 1
         return diversity / cnt
 
@@ -398,7 +398,7 @@ class ReplayBuffer_Episodic:
                 proximity = self.compute_proximity(batches[i])
 
             lamb = self.dis_balance
-            F = 100 * diversity - lamb * proximity
+            F = diversity - lamb * proximity
             if F > F_max:
                 F_max = F
                 sel_batch = batches[i]

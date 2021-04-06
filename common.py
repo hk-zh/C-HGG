@@ -92,7 +92,7 @@ def get_args():
     parser.add_argument('--hgg_c', help='weight of initial distribution in flow learner', type=np.float32, default=3.0)
     parser.add_argument('--hgg_L', help='Lipschitz constant', type=np.float32, default=5.0)
     parser.add_argument('--hgg_pool_size', help='size of achieved trajectories pool', type=np.int32, default=1000)
-    parser.add_argument('--balance_sigma', help='balance parameters', type=np.float32, default=0.25)
+    parser.add_argument('--balance_sigma', help='balance parameters', type=np.float32, default=0.3)
     parser.add_argument('--balance_eta', help='balance parameters', type=np.float32, default=1000)
     parser.add_argument('--record', help='record videos', type=bool, default=False)
 
@@ -141,6 +141,5 @@ def experiment_setup(args):
     args.tester = tester = Tester(args)
     args.logger.info('*** tester initialization complete ***')
     args.timesteps = env.max_episode_steps
-
 
     return env, env_test, agent, buffer, learner, tester, graph
