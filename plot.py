@@ -85,20 +85,15 @@ if __name__ == "__main__":
         if args.naming == 0:
             config = clean_path
         elif args.naming == 1:
-            if ("graph" in clean_path) or ("mesh" in clean_path):
-                config = "G-HGG"
-            elif "hgg" in clean_path and "curriculum" not in clean_path:
+            # only compare curriculum(graph-based), hgg, and her
+            if "curriculum" in clean_path and "graph" in clean_path:
+                config = "C-HGG"
+            elif "hgg" in clean_path:
                 config = "HGG"
-            elif "normal+goalGAN" in clean_path:
-                config = "HER+GOID"
             elif "normal" in clean_path:
                 config = "HER"
-            elif "sac" in clean_path:
-                config = "SAC"
             else:
                 raise Exception("Naming failed!")
-            if "curriculum" in clean_path:
-                config += "+Curriculum"
         elif args.naming == 2:
             if (("graph" in clean_path) or ("mesh" in clean_path)) and clean_path.startswith('a'):
                 config = r"G-HGG ($\delta_{stop} > 0.5$)"
@@ -157,6 +152,7 @@ if __name__ == "__main__":
                 config = "HER"
             else:
                 raise Exception("Naming failed!")
+
 
         # Test:
         run = config

@@ -121,76 +121,73 @@ To look at the agent solving the respective task according to his learned policy
 # Scheme: python play.py --env env_id --goal custom --play_path log_dir --play_epoch <epoch number, latest or best>
 
 # KukaReach
-python play.py --env KukaReach-v1 --play_path log/400-ddpg-KukaReach-v1-normal --play_epoch best
+python play.py --env KukaReach-v1 --play_path policies/KukaReach/400-ddpg-KukaReach-v1-normal --play_epoch best
 
 # KukaPickAndPlaceObstacle
-python play.py --env KukaPickAndPlaceObstacle-v1 --play_path log/520-ddpg-KukaPickAndPlaceObstacle-v1-hgg-graph-stop --play_epoch best
-python play.py --env KukaPickAndPlaceObstacle-v1 --play_path log/510-ddpg-KukaPickAndPlaceObstacle-v1-hgg-stop --play_epoch best
+python play.py --env KukaPickAndPlaceObstacle-v1 --play_path policies/KukaPickAndPlaceObstacle/520-ddpg-KukaPickAndPlaceObstacle-v1-hgg-graph-stop --play_epoch best
+python play.py --env KukaPickAndPlaceObstacle-v1 --play_path olicies/KukaPickAndPlaceObstacle/510-ddpg-KukaPickAndPlaceObstacle-v1-hgg-stop --play_epoch best
 
 # KukaPickNoObstacle
-python play.py --env KukaPickNoObstacle-v1 --play_path log/610-ddpg-KukaPickNoObstacle-v1-hgg-stop --play_epoch best
-python play.py --env KukaPickNoObstacle-v1 --play_path log/620-ddpg-KukaPickNoObstacle-v1-hgg-graph-stop --play_epoch best
+python play.py --env KukaPickNoObstacle-v1 --play_path policies/KukaPickNoObstacle/610-ddpg-KukaPickNoObstacle-v1-hgg-stop --play_epoch best
+python play.py --env KukaPickNoObstacle-v1 --play_path policies/KukaPickNoObstacle/620-ddpg-KukaPickNoObstacle-v1-hgg-graph-stop --play_epoch best
 
 # KukaPickThrow
-python play.py --env KukaPickThrow-v1 --play_path log/710-ddpg-KukaPickThrow-v1-hgg-stop --play_epoch best
-python play.py --env KukaPickThrow-v1 --play_path log/720-ddpg-KukaPickThrow-v1-hgg-graph-stop --play_epoch best
+python play.py --env KukaPickThrow-v1 --play_path policies/KukaPickThrow/710-ddpg-KukaPickThrow-v1-hgg-stop --play_epoch best
+python play.py --env KukaPickThrow-v1 --play_path policies/KukaPickThrow/720-ddpg-KukaPickThrow-v1-hgg-graph-stop --play_epoch best
 
 # KukaPushLabyrinth
-python play.py --env KukaPushLabyrinth-v1 --play_path log/810-ddpg-KukaPushLabyrinth-v1-hgg-stop --play_epoch best
-python play.py --env KukaPushLabyrinth-v1 --play_path log/820-ddpg-KukaPushLabyrinth-v1-hgg-graph-stop --play_epoch best
+python play.py --env KukaPushLabyrinth-v1 --play_path policies/KukaPushLabyrinth/810-ddpg-KukaPushLabyrinth-v1-hgg-stop --play_epoch best
+python play.py --env KukaPushLabyrinth-v1 --play_path policies/KukaPushLabyrinth/820-ddpg-KukaPushLabyrinth-v1-hgg-graph-stop --play_epoch best
 
-# KukaPushSlide
-python play.py --env KukaPushSlide-v1 --play_path log/910-ddpg-KukaPushSlide-v1-hgg-stop --play_epoch best
-
-# KukaPush
-python play.py --env KukaPushNew-v1 --play_path log/1010-ddpg-KukaPushNew-v1-hgg-stop --play_epoch best
 
 #KukaPushNew
-python play.py --env KukaPushNew-v1 --play_path log/1010-ddpg-KukaPushNew-v1-hgg-stop --play_epoch best
+python play.py --env KukaPushNew-v1 --play_path policies/KukaPushNew/1010-ddpg-KukaPushNew-v1-hgg-stop --play_epoch best
 
 ```
 ### Fetch Environments
 ```bash
 # FetchPushLabyrinth
-# G-HGG
-python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path figures/BA_Labyrinth/000-ddpg-FetchPushLabyrinth-v1-hgg-mesh-stop --play_epoch best
+# C-HGG
+python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path policies/FetchPushLabyrinth/020-ddpg-FetchPushLabyrinth-v1-hgg-graph-stop-curriculum --play_epoch best
 # HGG
-python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path figures/BA_Labyrinth/010-ddpg-FetchPushLabyrinth-v1-hgg-stop --play_epoch best
+python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path policies/FetchPushLabyrinth/010-ddpg-FetchPushLabyrinth-v1-hgg-stop --play_epoch best
 # HER
-python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path figures/BA_Labyrinth/010-ddpg-FetchPushLabyrinth-v1-normal --play_epoch best
+python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path policies/FetchPushLabyrinth/000-ddpg-FetchPushLabyrinth-v1-normal --play_epoch best
 
 # FetchPickObstacle
-python play.py --env FetchPickObstacle-v1 --goal custom --play_path figures/BA_Obstacle/100-ddpg-FetchPickObstacle-v1-hgg-mesh-stop --play_epoch best
-python play.py --env FetchPickObstacle-v1 --goal custom --play_path figures/BA_Obstacle/112-ddpg-FetchPickObstacle-v1-hgg-stop --play_epoch best
-python play.py --env FetchPickObstacle-v1 --goal custom --play_path figures/BA_Obstacle/120-ddpg-FetchPickObstacle-v1-normal --play_epoch best
+python play.py --env FetchPickObstacle-v1 --goal custom --play_path policies/FetchPickObstacle/100-ddpg-FetchPickObstacle-v1-normal --play_epoch best
+python play.py --env FetchPickObstacle-v1 --goal custom --play_path policies/FetchPickObstacle/110-ddpg-FetchPickObstacle-v1-hgg-stop --play_epoch best
+python play.py --env FetchPickObstacle-v1 --goal custom --play_path policies/FetchPickObstacle/120-ddpg-FetchPickObstacle-v1-hgg-graph-stop-curriculum --play_epoch best
 
 # FetchPickNoObstacle
-python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path figures/BA_NoObstacle/200-ddpg-FetchPickNoObstacle-v1-hgg-mesh-stop --play_epoch best
-python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path figures/BA_NoObstacle/210-ddpg-FetchPickNoObstacle-v1-hgg-stop --play_epoch best
-python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path figures/BA_NoObstacle/220-ddpg-FetchPickNoObstacle-v1-normal --play_epoch best
+python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path policies/FetchPickNoObstacle/200-ddpg-FetchPickNoObstacle-v1-normal --play_epoch best
+python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path policies/FetchPickNoObstacle/210-ddpg-FetchPickNoObstacle-v1-hgg-stop --play_epoch best
+python play.py --env FetchPickNoObstacle-v1 --goal custom --play_path policies/FetchPickNoObstacle/220-ddpg-FetchPickNoObstacle-v1-hgg-graph-stop-curriculum --play_epoch best
 
 # FetchPickAndThrow
-python play.py --env FetchPickAndThrow-v1 --goal custom --play_path figures/BA_Throw/300a-ddpg-FetchPickAndThrow-v1-hgg-mesh-stop --play_epoch best
-python play.py --env FetchPickAndThrow-v1 --goal custom --play_path figures/BA_Throw/310a-ddpg-FetchPickAndThrow-v1-hgg-stop --play_epoch best
-python play.py --env FetchPickAndThrow-v1 --goal custom --play_path figures/BA_Throw/320a-ddpg-FetchPickAndThrow-v1-hgg-normal --play_epoch best
+python play.py --env FetchPickAndThrow-v1 --goal custom --play_path policies/FetchPickAndThrow/300-ddpg-FetchPickAndThrow-v1-normal --play_epoch best
+python play.py --env FetchPickAndThrow-v1 --goal custom --play_path policies/FetchPickAndThrow/310-ddpg-FetchPickAndThrow-v1-hgg-stop  --play_epoch best
+python play.py --env FetchPickAndThrow-v1 --goal custom --play_path policies/FetchPickAndThrow/320-ddpg-FetchPickAndThrow-v1-hgg-mesh-stop  --play_epoch best
 
 # FetchPushNew
-python play.py --env FetchPushNew-v1 --goal custom --play_path log/1010-ddpg-FetchPushNew-v1-hgg-stop --play_epoch best
+python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1000-ddpg-FetchPushNew-v1-normal --play_epoch best
+python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1011-ddpg-FetchPushNew-v1-hgg-stop-curriculum --play_epoch best
+python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1012-ddpg-FetchPushNew-v1-hgg-stop --play_epoch best
 
 # FetchReach
-python play.py --env FetchReach-v1 --goal custom --play_path log/1310-ddpg-FetchReach-v1-hgg-stop --play_epoch best
+python play.py --env FetchReach-v1 --goal custom --play_path policies/FetchReach/1310-ddpg-FetchReach-v1-hgg-stop --play_epoch best
 
 ```
 ### Hand Environments
 ```bash
 # HandManipulateEgg
-python play.py --env HandManipulateEgg-v0 --play_path log/1210-ddpg-HandManipulateEgg-v0-hgg-stop --play_epoch best
+python play.py --env HandManipulateEgg-v0 --play_path policies/HandManipulateEgg/1210-ddpg-HandManipulateEgg-v0-hgg-stop --play_epoch best
 # HandReach
-python play.py --env HandReach-v0 --play_path log/1110-ddpg-HandReach-v0-hgg-stop --play_epoch best
+python play.py --env HandReach-v0 --play_path policies/HandReach/1110-ddpg-HandReach-v0-hgg-stop --play_epoch best
 # HandManipulateBlock
-python play.py --env HandManipulateBlock-v0 --play_path log/1410-ddpg-HandManipulateBlock-v0-hgg-stop --play_epoch best
+python play.py --env HandManipulateBlock-v0 --play_path policies/HandManipulateBlock/1410-ddpg-HandManipulateBlock-v0-hgg-stop --play_epoch best
 # HandManipulatePen
-python play.py --env HandManipulatePen-v0 --play_path log/1510-ddpg-HandManipulatePen-v0-hgg-stop  --play_epoch best
+python play.py --env HandManipulatePen-v0 --play_path policies/HandManipulatePen/1510-ddpg-HandManipulatePen-v0-hgg-stop  --play_epoch best
 ```
 
 ## Running commands from HGG paper

@@ -391,7 +391,7 @@ class ReplayBuffer_Episodic:
                 batches[i].append([idx, step, goal])
 
             if self.args.graph:
-                diversity = self.compute_diversity_graph(batches[i])
+                diversity = self.compute_diversity2(batches[i])
                 proximity = self.compute_proximity_graph(batches[i])
             else:
                 diversity = self.compute_diversity2(batches[i])
