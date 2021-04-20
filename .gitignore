@@ -10,5 +10,6 @@
 .idea
 /hindsightGoals
 /__pycache__
+/policies
 
 
