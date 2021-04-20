@@ -21,6 +21,11 @@ pip install -e .
 ```bash
 pip install -r requirements.txt
 ```
+
+7. Trained policies can be downloaded here: 
+https://syncandshare.lrz.de/getlink/fiNF8o2gZeushcLZEcjxMVVu/policies.zip
+   
+
 ## New Kuka Environments
 ![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaReach.png)
 ![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaPush.png)
@@ -125,7 +130,7 @@ python play.py --env KukaReach-v1 --play_path policies/KukaReach/400-ddpg-KukaRe
 
 # KukaPickAndPlaceObstacle
 python play.py --env KukaPickAndPlaceObstacle-v1 --play_path policies/KukaPickAndPlaceObstacle/520-ddpg-KukaPickAndPlaceObstacle-v1-hgg-graph-stop --play_epoch best
-python play.py --env KukaPickAndPlaceObstacle-v1 --play_path olicies/KukaPickAndPlaceObstacle/510-ddpg-KukaPickAndPlaceObstacle-v1-hgg-stop --play_epoch best
+python play.py --env KukaPickAndPlaceObstacle-v1 --play_path policies/KukaPickAndPlaceObstacle/510-ddpg-KukaPickAndPlaceObstacle-v1-hgg-stop --play_epoch best
 
 # KukaPickNoObstacle
 python play.py --env KukaPickNoObstacle-v1 --play_path policies/KukaPickNoObstacle/610-ddpg-KukaPickNoObstacle-v1-hgg-stop --play_epoch best
@@ -170,7 +175,6 @@ python play.py --env FetchPickAndThrow-v1 --goal custom --play_path policies/Fet
 python play.py --env FetchPickAndThrow-v1 --goal custom --play_path policies/FetchPickAndThrow/320-ddpg-FetchPickAndThrow-v1-hgg-mesh-stop  --play_epoch best
 
 # FetchPushNew
-python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1000-ddpg-FetchPushNew-v1-normal --play_epoch best
 python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1011-ddpg-FetchPushNew-v1-hgg-stop-curriculum --play_epoch best
 python play.py --env FetchPushNew-v1 --goal custom --play_path policies/FetchPushNew/1012-ddpg-FetchPushNew-v1-hgg-stop --play_epoch best
 
