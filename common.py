@@ -93,11 +93,7 @@ def get_args():
     parser.add_argument('--hgg_L', help='Lipschitz constant', type=np.float32, default=5.0)
     parser.add_argument('--hgg_pool_size', help='size of achieved trajectories pool', type=np.int32, default=1000)
     parser.add_argument('--balance_sigma', help='balance parameters', type=np.float32, default=0.3)
-<<<<<<< HEAD
     parser.add_argument('--balance_eta', help='balance parameters', type=np.float32, default=100)
-=======
-    parser.add_argument('--balance_eta', help='balance parameters', type=np.float32, default=1000)
->>>>>>> 0af966996c7ab5f5467cc0d04096ba897bc56d75
     parser.add_argument('--record', help='record videos', type=bool, default=False)
 
     parser.add_argument('--save_acc', help='save successful rate', type=str2bool, default=True)
