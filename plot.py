@@ -153,7 +153,6 @@ if __name__ == "__main__":
             else:
                 raise Exception("Naming failed!")
 
-
         # Test:
         run = config
         print('Config / run: {} / {}'.format(config, run))
