@@ -2,7 +2,7 @@ from gym import utils as gym_utils
 from gym_kuka_mujoco.envs.fetch import fetch_env
 from gym_kuka_mujoco.envs import rotations, utils
 
-MODEL_XML_PATH = 'R800_pick_no_obstacle2_gravity.xml'
+MODEL_XML_PATH = 'R800_pick_no_obstacle_gravity.xml'
 
 
 class PickNoObstacleEnv(fetch_env.FetchEnv, gym_utils.EzPickle):

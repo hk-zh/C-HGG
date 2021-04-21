@@ -18,7 +18,7 @@
     </default>
     <default class="fetchGripper">
         <geom condim="4" margin="0.001" type="box" user="0" rgba="0.356 0.361 0.376 1.0"/>
-        <joint armature="100" damping="1000" limited="true" solimplimit="0.99 0.999 0.01" solreflimit="0.015 1" type="slide"/>
+        <joint armature="100" damping="1000" limited="true" solimplimit="0.99 0.999 0.01" solreflimit="0.02 1" type="slide"/>
     </default>
     <site rgba="1 0 0 .5"/>
   </default>

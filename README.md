@@ -46,18 +46,17 @@ Note that new Kuka Environments are introduced.
 python train.py --tag 000 --learn normal --env FetchPushLabyrinth-v1 --goal custom 
 # HGG (with HER, EBP and STOP condition)
 python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3
-# G-HGG (with HER, EBP and STOP condition)
-python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 
+# C-HGG
+python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --graph True --n_x 31 --n_y 31 --n_z 11 --curriculum True
 # HER+GoalGAN
 python train.py --tag 030 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
-# C-HGG
-python train.py --tag 040 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --curriculum True
+
 
 
 # FetchPickObstacle
 python train.py --tag 100 --learn normal --env FetchPickObstacle-v1 --goal custom 
 python train.py --tag 110 --learn hgg --env FetchPickObstacle-v1 --goal custom --stop_hgg_threshold 0.3
-python train.py --tag 120 --learn hgg --env FetchPickObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3
+python train.py --tag 120 --learn hgg --env FetchPickObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 --curriculum True
 python train.py --tag 140 --learn normal+goalGAN --env FetchPickObstacle-v1 --goal custom
 # hgg + route
 python train.py --tag 111 --learn hgg --env FetchPickObstacle-v1 --goal custom --stop_hgg_threshold 0.5 --route True 
@@ -65,13 +64,13 @@ python train.py --tag 111 --learn hgg --env FetchPickObstacle-v1 --goal custom -
 # FetchPickNoObstacle
 python train.py --tag 200 --learn normal --env FetchPickNoObstacle-v1 --goal custom 
 python train.py --tag 210 --learn hgg --env FetchPickNoObstacle-v1 --goal custom --stop_hgg_threshold 0.3
-python train.py --tag 220 --learn hgg --env FetchPickNoObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3
+python train.py --tag 220 --learn hgg --env FetchPickNoObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 --curriculum True
 python train.py --tag 240 --learn normal+goalGAN --env FetchPickNoObstacle-v1 --goal custom
 
 # FetchPickAndThrow
 python train.py --tag 300 --learn normal --env FetchPickAndThrow-v1 --goal custom 
 python train.py --tag 310 --learn hgg --env FetchPickAndThrow-v1 --goal custom --stop_hgg_threshold 0.9
-python train.py --tag 320 --learn hgg --env FetchPickAndThrow-v1 --goal custom --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9
+python train.py --tag 320 --learn hgg --env FetchPickAndThrow-v1 --goal custom --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9 --curriculum True
 python train.py --tag 340 --learn normal+goalGAN --env FetchPickAndThrow-v1 --goal custom
 # FetchPush
 python train.py --tag 1010 --goal custom --learn hgg --env FetchPush-new-v1 --stop_hgg_threshold 0.3 --epoch 20
@@ -85,21 +84,21 @@ python train.py --tag 1310 --goal custom --learn hgg --env FetchReach-v1 --stop_
 # KukaReach
 python train.py --tag 400 --learn normal --env KukaReach-v1 
 python train.py --tag 410 --learn hgg --env KukaReach-v1 --stop_hgg_threshold 0.3
-python train.py --tag 420 --learn hgg --env KukaReach-v1 --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9
+python train.py --tag 420 --learn hgg --env KukaReach-v1 --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9 --curriculum True
 
 # KukaPickAndPlaceObstacle
 python train.py --tag 510 --learn hgg --env KukaPickAndPlaceObstacle-v1 --stop_hgg_threshold 0.3
-python train.py --tag 520 --learn hgg --env KukaPickAndPlaceObstacle-v1 --graph True --n_x 51 --n_y 51 --n_z 15 --stop_hgg_threshold 0.9
+python train.py --tag 520 --learn hgg --env KukaPickAndPlaceObstacle-v1 --graph True --n_x 51 --n_y 51 --n_z 15 --stop_hgg_threshold 0.9 --curriculum True
 # KukaPickNoObstacle
 python train.py --tag 610 --learn hgg --env KukaPickNoObstacle-v1 --stop_hgg_threshold 0.3
-python train.py --tag 620 --learn hgg --env KukaPickNoObstacle-v1 --graph True --n_x 51 --n_y 51 --n_z 15 --stop_hgg_threshold 0.9
+python train.py --tag 620 --learn hgg --env KukaPickNoObstacle-v1 --graph True --n_x 51 --n_y 51 --n_z 15 --stop_hgg_threshold 0.9 --curriculum True
 
 # KukaPickThrow
 python train.py --tag 710 --learn hgg --env KukaPickThrow-v1 --stop_hgg_threshold 0.3 --epoch 30
 python train.py --tag 720 --learn hgg --env KukaPickThrow-v1 --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9 --epoch 30
 
 # KukaPushLabyrinth
-python train.py --tag 820 --learn hgg --env KukaPushLabyrinth-v1 --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9
+python train.py --tag 820 --learn hgg --env KukaPushLabyrinth-v1 --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9 --curriculum True
 
 # KukaPushSlide
 python train.py --tag 910 --learn hgg --env KukaPushSlide-v1 --stop_hgg_threshold 0.3 --epoch 20
