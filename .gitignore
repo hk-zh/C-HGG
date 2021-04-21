@@ -9,7 +9,7 @@
 /videos
 .idea
 /hindsightGoals
-!**/__pycache__/
+**/__pycache__/
 /policies
 
 
