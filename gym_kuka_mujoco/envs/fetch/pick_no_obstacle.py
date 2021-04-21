@@ -9,14 +9,14 @@ class PickNoObstacleEnv(fetch_env.FetchEnv, gym_utils.EzPickle):
     def __init__(self, reward_type='sparse'):
         initial_qpos = {
             'kuka_joint_1': 0.356,
-            'kuka_joint_2': 0.879,
+            'kuka_joint_2': 0.942,
             'kuka_joint_3': 0.0,
-            'kuka_joint_4': -1.51,
+            'kuka_joint_4': -1.53,
             'kuka_joint_5': 0.0,
-            'kuka_joint_6': 0.750,
+            'kuka_joint_6': 0.628,
             'kuka_joint_7': 0.336,
-            'r_gripper_finger_joint': 0.0,
-            'l_gripper_finger_joint': 0.0
+            'r_gripper_finger_joint': 0.026,
+            'l_gripper_finger_joint': 0.026
         }
         self.target_range_x = 0.2  # entire table: 0.125
         self.target_range_y = 0.10  # entire table: 0.175

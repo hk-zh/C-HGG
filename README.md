@@ -25,6 +25,9 @@ pip install -r requirements.txt
 7. Trained policies can be downloaded here: 
 https://syncandshare.lrz.de/getlink/fiNF8o2gZeushcLZEcjxMVVu/policies.zip
    
+8. Videos about Kuka Environments can be found here:
+https://sites.google.com/view/kuka-environment/
+   
 
 ## New Kuka Environments
 ![image](https://github.com/Hongkuan-Zhou/C-HGG/blob/main/Image/KukaReach.png)

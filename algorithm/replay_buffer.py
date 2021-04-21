@@ -354,7 +354,10 @@ class ReplayBuffer_Episodic:
             if dis != 9999:
                 proximity = proximity + dis
                 cnt += 1
-        return proximity / cnt
+        if cnt == 0:
+            return 0
+        else:
+            return proximity / cnt
 
     def compute_proximity(self, batch):
         proximity = 0.0
