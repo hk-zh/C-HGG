@@ -110,12 +110,19 @@ python train.py --tag 1010 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold
 ```bash
 # HandReach
 python train.py --tag 1110 --learn hgg --env HandReach-v0 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1110 --learn hgg --env HandReach-v0 --stop_hgg_threshold 0.3 --epoch 20 --curriculum True
 
 # HandManipulateEgg
-python train.py --tag 1210 --learn hgg --env HandReach-v0 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1210 --learn hgg --env HandManipulateEgg-v0 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1210 --learn hgg --env HandManipulateEgg-v0 --stop_hgg_threshold 0.3 --epoch 20 --curriculum True
 
 # HandManipulateBlock
-python train.py --tag 1410 --learn hgg --env Hand 
+python train.py --tag 1410 --learn hgg --env HandManipulateBlock-v0 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1410 --learn hgg --env HandManipulateBlock-v0 --stop_hgg_threshold 0.3 --epoch 20 --curriculum True
+
+#HandManipulatePen
+python train.py --tag 1510 --learn hgg --env HandManipulatePen-v0 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1510 --learn hgg --env HandManipulatePen-v0 --stop_hgg_threshold 0.3 --epoch 20 --curriculum True
 ```
 
 ## Playing 
