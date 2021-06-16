@@ -88,6 +88,8 @@ if __name__ == "__main__":
             # only compare curriculum(graph-based), hgg, and her
             if "curriculum" in clean_path and "graph" in clean_path:
                 config = "C-HGG"
+            elif "curriculum" in clean_path:
+                config = "C-HER"
             elif "hgg" in clean_path:
                 config = "HGG"
             elif "normal" in clean_path:
@@ -211,7 +213,7 @@ if __name__ == "__main__":
     plt.ylabel('Median Success Rate', fontsize=20)
     ax = plt.gca()
     plt.tick_params(labelsize=16)
-    my_x_ticks = np.arange(0, 450, 50)
+    my_x_ticks = np.arange(0, 250, 50)
     my_y_ticks = np.arange(0, 1.2, 0.2)
     plt.xticks(my_x_ticks)
     plt.yticks(my_y_ticks)

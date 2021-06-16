@@ -6,7 +6,7 @@ It is based on the implementation of the HGG paper [Exploration via Hindsight Go
 
 ## Requirements
 1. Ubuntu 16.04 or macOS Catalina 10.15.7 (newer versions also work well) 
-2. Python 3.5.2 (newer versions such as 3.6.8 should work as well)
+2. Python 3.5.2 (newer versions such as 3.6.8 should work as well, 3.8 or higher is not suggested)
 3. MuJoCo == 2.00 (see instructions on https://github.com/openai/mujoco-py)
 4. Install gym from https://github.com/Hongkuan-Zhou/gym.git. Certain environment specifications and parameters are set there. 
 
@@ -40,7 +40,8 @@ Note that new Kuka Environments are introduced.
 
 ### Fetch Environments
 ```bash
-# FetchPushLabyrinth
+## FetchPushLabyrinth
+
 # HER (with EBP)
 python train.py --tag 000 --learn normal --env FetchPushLabyrinth-v1 --goal custom 
 # HGG (with HER, EBP and STOP condition)
@@ -49,33 +50,43 @@ python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom 
 python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --graph True --n_x 31 --n_y 31 --n_z 11 --curriculum True
 # HER+GoalGAN
 python train.py --tag 030 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
+# C-HER
+python train.py --tag 040 --learn normal --env FetchPushLabyrinth-v1 --goal custom --curriculum True --batch_size 64 --buffer_size 500
 
 
+## FetchPickObstacle
 
-# FetchPickObstacle
 python train.py --tag 100 --learn normal --env FetchPickObstacle-v1 --goal custom 
 python train.py --tag 110 --learn hgg --env FetchPickObstacle-v1 --goal custom --stop_hgg_threshold 0.3
 python train.py --tag 120 --learn hgg --env FetchPickObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 --curriculum True
 python train.py --tag 140 --learn normal+goalGAN --env FetchPickObstacle-v1 --goal custom
 # hgg + route
 python train.py --tag 111 --learn hgg --env FetchPickObstacle-v1 --goal custom --stop_hgg_threshold 0.5 --route True 
+# C-HER
+python train.py --tag 150 --learn normal --env FetchPickObstacle-v1 --goal custom --curriculum True --batch_size 64 --buffer_size 500
 
-# FetchPickNoObstacle
+## FetchPickNoObstacle
 python train.py --tag 200 --learn normal --env FetchPickNoObstacle-v1 --goal custom 
 python train.py --tag 210 --learn hgg --env FetchPickNoObstacle-v1 --goal custom --stop_hgg_threshold 0.3
 python train.py --tag 220 --learn hgg --env FetchPickNoObstacle-v1 --goal custom --graph True --n_x 31 --n_y 31 --n_z 11 --stop_hgg_threshold 0.3 --curriculum True
 python train.py --tag 240 --learn normal+goalGAN --env FetchPickNoObstacle-v1 --goal custom
+# C-HER
+python train.py --tag 250 --learn normal --env FetchPickNoObstacle-v1 --goal custom --curriculum True --batch_size 64 --buffer_size 500
 
-# FetchPickAndThrow
+## FetchPickAndThrow
 python train.py --tag 300 --learn normal --env FetchPickAndThrow-v1 --goal custom 
 python train.py --tag 310 --learn hgg --env FetchPickAndThrow-v1 --goal custom --stop_hgg_threshold 0.9
 python train.py --tag 320 --learn hgg --env FetchPickAndThrow-v1 --goal custom --graph True --n_x 51 --n_y 51 --n_z 7 --stop_hgg_threshold 0.9 --curriculum True
 python train.py --tag 340 --learn normal+goalGAN --env FetchPickAndThrow-v1 --goal custom
-# FetchPush
+
+## FetchPush
 python train.py --tag 1010 --goal custom --learn hgg --env FetchPush-new-v1 --stop_hgg_threshold 0.3 --epoch 20
 
 # FetchReach
-python train.py --tag 1310 --goal custom --learn hgg --env FetchReach-v1 --stop_hgg_threshold 0.3 --epoch 20
+python train.py --tag 1310 --goal custom --learn hgg --env FetchReach-v1 --stop_hgg_threshold 0.3 --epoch 10
+# C-HER
+python train.py --tag 1320 --goal custom --learn normal --env FetchReach-v1 --curriculum True --batch_size 64 --buffer_size 500 --epoch 10
+
 
 ```
 ### Kuka Environments
