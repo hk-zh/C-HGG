@@ -27,39 +27,38 @@ class NormalLearner:
                     args.logger.add_dict(info)
                 agent.target_update()
 
-        if self.iter == 50:
-            file_handle = open('1.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 150:
-            file_handle = open('2.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 250:
-            file_handle = open('3.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        if self.iter == 350:
-            file_handle = open('4.txt', mode='w')
-            file_handle.write(str(buffer.sample_batch()['obs']))
-        self.iter += 1
-        # TODO: deleted this duplicate test section
-        """ 
-		for _ in range(args.test_rollouts):
-			def test_rollout(env, prefix=''):
-				rewards = 0.0
-				obs = env.reset()
-				for timestep in range(args.timesteps):
-					action, info = agent.step(obs, explore=False, test_info=True)
-					args.logger.add_dict(info, prefix)
-					obs, reward, done, info = env.step(action)
-					rewards += reward
-					if timestep==args.timesteps-1: done = True
-					if done: break
-				args.logger.add_dict(info, prefix)
+        # if self.iter == 50:
+        #     file_handle = open('1.txt', mode='w')
+        #     file_handle.write(str(buffer.sample_batch()['obs']))
+        # if self.iter == 150:
+        #     file_handle = open('2.txt', mode='w')
+        #     file_handle.write(str(buffer.sample_batch()['obs']))
+        # if self.iter == 250:
+        #     file_handle = open('3.txt', mode='w')
+        #     file_handle.write(str(buffer.sample_batch()['obs']))
+        # if self.iter == 350:
+        #     file_handle = open('4.txt', mode='w')
+        #     file_handle.write(str(buffer.sample_batch()['obs']))
+        # self.iter += 1
 
-			if args.goal_based:
-				# goal-based envs test
-				test_rollout(env, 'train/')
-				test_rollout(env_test, 'test/')
-			else:
-				# normal envs test
-				test_rollout(env)
-		"""
+        # TODO: deleted this duplicate test section
+    # for _ in range(args.test_rollouts):
+    # 	def test_rollout(env, prefix=''):
+    # 		rewards = 0.0
+    # 		obs = env.reset()
+    # 		for timestep in range(args.timesteps):
+    # 			action, info = agent.step(obs, explore=False, test_info=True)
+    # 			args.logger.add_dict(info, prefix)
+    # 			obs, reward, done, info = env.step(action)
+    # 			rewards += reward
+    # 			if timestep==args.timesteps-1: done = True
+    # 			if done: break
+    # 		args.logger.add_dict(info, prefix)
+
+    # 	if args.goal_based:
+    # 		# goal-based envs test
+    # 		test_rollout(env, 'train/')
+    # 		test_rollout(env_test, 'test/')
+    # 	else:
+    # 		# normal envs test
+    # 		test_rollout(env)
