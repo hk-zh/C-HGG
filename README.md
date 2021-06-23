@@ -130,7 +130,7 @@ python train.py --tag 1010 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold
 #GC-HGG
 python train.py --tag 1020 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold 0.3 --epoch 20 --graph True --n_x 31 --n_y 31 --n_z 11 --curriculum True
 #CHER
-python train.py --tag 1020 --learn normal --env KukaPushNew-v1 --epoch 20 --curriculum True
+python train.py --tag 1050 --learn normal --env KukaPushNew-v1 --epoch 20 --curriculum True
 
 ```
 
