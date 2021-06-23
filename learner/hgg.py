@@ -121,7 +121,6 @@ class MatchSampler:
             d2 = self.euler_dis(goal_a, r4)
         return min(d1, d2)
 
-
     def add_noise(self, pre_goal, noise_std=None):
         goal = pre_goal.copy()
         dim = 2 if self.args.env[:5] == 'fetch' else self.dim

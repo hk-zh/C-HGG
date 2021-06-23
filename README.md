@@ -46,7 +46,7 @@ Note that new Kuka Environments are introduced.
 python train.py --tag 000 --learn normal --env FetchPushLabyrinth-v1 --goal custom 
 # HGG (with HER, EBP and STOP condition)
 python train.py --tag 010 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3
-# C-HGG
+# GC-HGG
 python train.py --tag 020 --learn hgg --env FetchPushLabyrinth-v1 --goal custom --stop_hgg_threshold 0.3 --graph True --n_x 31 --n_y 31 --n_z 11 --curriculum True
 # HER+GoalGAN
 python train.py --tag 030 --learn normal+goalGAN --env FetchPushLabyrinth-v1 --goal custom
@@ -121,8 +121,17 @@ python train.py --tag 850 --learn normal --env KukaPushLabyrinth-v1 --curriculum
 ## KukaPushSlide
 python train.py --tag 910 --learn hgg --env KukaPushSlide-v1 --stop_hgg_threshold 0.3 --epoch 20
 
-# KukaPush
+## KukaPushNew
+
+#HER
+python train.py --tag 1000 --learn normal --env KukaPushNew-v1 --epoch 20
+#HGG
 python train.py --tag 1010 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold 0.3 --epoch 20
+#GC-HGG
+python train.py --tag 1020 --learn hgg --env KukaPushNew-v1 --stop_hgg_threshold 0.3 --epoch 20 --graph True --n_x 31 --n_y 31 --n_z 11 --curriculum True
+#CHER
+python train.py --tag 1020 --learn normal --env KukaPushNew-v1 --epoch 20 --curriculum True
+
 ```
 
 ### Hand Manipulate Environments
@@ -179,7 +188,7 @@ python play.py --env KukaPushNew-v1 --play_path policies/KukaPushNew/1010-ddpg-K
 ### Fetch Environments
 ```bash
 # FetchPushLabyrinth
-# C-HGG
+# GC-HGG
 python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path policies/FetchPushLabyrinth/020-ddpg-FetchPushLabyrinth-v1-hgg-graph-stop-curriculum --play_epoch best
 # HGG
 python play.py --env FetchPushLabyrinth-v1 --goal custom --play_path policies/FetchPushLabyrinth/010-ddpg-FetchPushLabyrinth-v1-hgg-stop --play_epoch best

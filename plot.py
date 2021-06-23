@@ -80,15 +80,16 @@ if __name__ == "__main__":
             continue
         clean_path = curr_path.replace(env_id, '')
         clean_path = os.path.basename(os.path.normpath(clean_path))
-        clean_path = ''.join([i for i in clean_path if not i.isdigit()])
+        # clean_path = ''.join([i for i in clean_path if not i.isdigit()])
         # divide path into run (number in the beginning) and config (information on configuration, included in the path name)
         if args.naming == 0:
             config = clean_path
         elif args.naming == 1:
             # only compare curriculum(graph-based), hgg, and her
-            if "curriculum" in clean_path and "graph" in clean_path:
-                config = "C-HGG"
-            elif "curriculum" in clean_path:
+            location = 4
+            if "curriculum" in clean_path and "hgg" in clean_path:
+                config = "GC-HGG"
+            elif "curriculum" in clean_path and "normal" in clean_path:
                 config = "C-HER"
             elif "hgg" in clean_path:
                 config = "HGG"
@@ -154,6 +155,25 @@ if __name__ == "__main__":
                 config = "HER"
             else:
                 raise Exception("Naming failed!")
+        elif args.naming == 7:
+            # ablation study for eta
+            location = 4
+            if ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta1000" in clean_path):
+                config = r"GC-HGG ($eta = 1000$)"
+            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta5000" in clean_path):
+                config = r"GC-HGG ($eta = 5000$)"
+            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta500" in clean_path):
+                config = r"GC-HGG ($eta = 500$)"
+        elif args.naming == 8:
+            location = 4
+            # ablation study for sigma
+            if ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.3" in clean_path) and ("sigma0.37" not in clean_path):
+                config = r"GC-HGG ($sigma = 0.3$)"
+            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.37" in clean_path):
+                config = r"GC-HGG ($sigma = 0.37$)"
+            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.4" in clean_path):
+                config = r"GC-HGG ($sigma = 0.4$)"
+
 
         # Test:
         run = config
@@ -213,7 +233,10 @@ if __name__ == "__main__":
     plt.ylabel('Median Success Rate', fontsize=20)
     ax = plt.gca()
     plt.tick_params(labelsize=16)
-    my_x_ticks = np.arange(0, 250, 50)
+    if (args.env_id == "FetchReach") or (args.env_id == "KukaReach"):
+        my_x_ticks = np.arange(0, 120, 20)
+    else:
+        my_x_ticks = np.arange(0, 450, 50)
     my_y_ticks = np.arange(0, 1.2, 0.2)
     plt.xticks(my_x_ticks)
     plt.yticks(my_y_ticks)

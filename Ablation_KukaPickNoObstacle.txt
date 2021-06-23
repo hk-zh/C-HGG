@@ -1,3 +1,0 @@
-python train.py --tag 620 --learn hgg --env KukaPickNoObstacle-v1 --graph True --n_x 31 --n_y 31 --n_z 21 --stop_hgg_threshold 0.9 --curriculum True --balance_eta 1000 --balance_sigma 0.3
-python train.py --tag 621 --learn hgg --env KukaPickNoObstacle-v1 --graph True --n_x 31 --n_y 31 --n_z 21 --stop_hgg_threshold 0.9 --curriculum True --balance_eta 1000 --balance_sigma 0.2
-python train.py --tag 622 --learn hgg --env KukaPickNoObstacle-v1 --graph True --n_x 31 --n_y 31 --n_z 21 --stop_hgg_threshold 0.9 --curriculum True --balance_eta 1000 --balance_sigma 0.4
