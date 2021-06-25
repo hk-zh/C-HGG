@@ -20,7 +20,7 @@ class PushNewEnv(push_env.PushEnv, gym_utils.EzPickle):
         self.target_range_y = 0.12
         self.adapt_dict = dict()
         self.adapt_dict["field"] = [0.75, 0, 1.05-0.15, 0.25, 0.35, 0.05]
-        self.adapt_dict["obstacles"] = [[0.7, 0, 0.075+1-0.15, 0.2, 0.04, 0.075]]
+        self.adapt_dict["obstacles"] = [[0.675, 0, 0.075+1-0.15, 0.175, 0.04, 0.075]]
 
         push_env.PushEnv.__init__(
             self, MODEL_XML_PATH, has_object=True, n_substeps=20,

@@ -199,13 +199,14 @@ if __name__ == "__main__":
     # Call play.py in order to see current policy progress
     args = get_args()
     player = Player(args)
-    if not args.record:
-        player.play()
-    else:
-        player.record_video(raw_path="figures/" + args.play_path[8:])
+    # if not args.record:
+    #     player.play()
+    # else:
+    #     player.record_video(raw_path="figures/" + args.play_path[8:])
+    player.demoRecordPush()
     # player.demoRecordPushJoints()
     # player.demoRecordReach()
-    #player.demoRecordReach1()
+    # player.demoRecordReach1()
     # player.demoRecordPickNoObstacle()
     # player.demoRecordPickAndPlaceObstacle()
 

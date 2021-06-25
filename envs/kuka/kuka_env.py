@@ -30,7 +30,7 @@ def make_env(envName):
         'KukaPickThrow-v1': 100,
         'KukaPushLabyrinth-v1': 100,
         'KukaPushSlide-v1': 100,
-        'KukaPushNew-v1': 200,
+        'KukaPushNew-v1': 100,
         'KukaPushLabyrinth-v2': 100
     }[envName]
     env = TimeLimit(env, max_episode_steps=MAXEPISODESTEPS)
