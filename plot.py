@@ -158,21 +158,21 @@ if __name__ == "__main__":
         elif args.naming == 7:
             # ablation study for eta
             location = 4
-            if ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta1000" in clean_path):
-                config = r"GC-HGG ($eta = 1000$)"
-            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta5000" in clean_path):
-                config = r"GC-HGG ($eta = 5000$)"
-            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("eta500" in clean_path):
-                config = r"GC-HGG ($eta = 500$)"
+            if ("curriculum" in clean_path) and ("eta1000" in clean_path):
+                config = r"GC-HGG ($\eta = 1000$)"
+            elif ("curriculum" in clean_path) and ("eta5000" in clean_path):
+                config = r"GC-HGG ($\eta = 5000$)"
+            elif ("curriculum" in clean_path) and ("eta500" in clean_path):
+                config = r"GC-HGG ($\eta = 500$)"
         elif args.naming == 8:
             location = 4
             # ablation study for sigma
-            if ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.3" in clean_path) and ("sigma0.37" not in clean_path):
-                config = r"GC-HGG ($sigma = 0.3$)"
-            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.37" in clean_path):
-                config = r"GC-HGG ($sigma = 0.37$)"
-            elif ("graph" in clean_path) and ("curriculum" in clean_path) and ("sigma0.4" in clean_path):
-                config = r"GC-HGG ($sigma = 0.4$)"
+            if ("curriculum" in clean_path) and ("sigma0.3" in clean_path) and ("sigma0.37" not in clean_path):
+                config = r"GC-HGG ($\sigma = 0.3$)"
+            elif ("curriculum" in clean_path) and ("sigma0.37" in clean_path):
+                config = r"GC-HGG ($\sigma = 0.37$)"
+            elif ("curriculum" in clean_path) and ("sigma0.4" in clean_path):
+                config = r"GC-HGG ($\sigma = 0.4$)"
 
 
         # Test:
@@ -216,6 +216,11 @@ if __name__ == "__main__":
         configs = sorted(data.keys(), key=lambda x:(len(x), x))
     else:
         configs = sorted(data.keys())
+
+    # if (args.env_id == "FetchReach") or (args.env_id == "KukaReach"):
+    #     linewidth = 1
+    # else:
+    #     linewidth = 3
 
     for config in configs:
         print("Config: {}".format(config))
